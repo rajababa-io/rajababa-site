@@ -3,68 +3,244 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rajababa LLC</title>
-<meta name="description" content="Rajababa LLC is a Nevada limited liability company that builds software: Hadji, door-code access for gyms, and a camper van control screen.">
+<title>Rajababa — software that runs real things</title>
+<meta name="description" content="Rajababa LLC is a Nevada software company. We build Hadji, the AI coding-agent engine, a door-code system for OMNI Tahoe, and a control screen for camper vans.">
+<meta property="og:title" content="Rajababa">
+<meta property="og:description" content="Software that runs real things — Hadji, door codes for OMNI Tahoe, and a camper van control screen.">
+<meta property="og:image" content="https://rajababa.io/assets/hadji-app.webp">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
 <style>
-  :root { --bg:#0d0d0f; --fg:#f2f0ec; --mute:#a09d96; --line:#2a2a2e; --panel:#151518; --accent:#ff6b2c; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
-  a { color:inherit; text-decoration:none; border-bottom:1px solid var(--line); }
-  a:hover { border-color:var(--fg); }
-  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
-  header { padding:96px 0 56px; }
-  h1 { font-size:clamp(40px,7vw,64px); letter-spacing:-.02em; line-height:1.1; margin:0 0 16px; }
-  .lead { color:var(--mute); font-size:20px; max-width:640px; margin:0; }
-  h2 { font-size:28px; letter-spacing:-.01em; margin:0 0 24px; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-bottom:72px; }
-  .card { border:1px solid var(--line); border-radius:14px; background:var(--panel); padding:24px; }
-  .card h3 { margin:0 0 8px; font-size:20px; }
-  .card p { margin:0 0 12px; color:var(--mute); font-size:16px; }
-  .card .link { font-size:15px; color:var(--accent); border:0; }
-  .about { margin-bottom:72px; }
-  address { font-style:normal; color:var(--mute); }
-  footer { border-top:1px solid var(--line); padding:32px 0 48px; color:var(--mute); font-size:14px; }
-  footer .wrap { display:flex; flex-wrap:wrap; gap:12px 32px; justify-content:space-between; }
+  :root {
+    --bg:#fbfaf8; --fg:#121212; --mute:#5f5b55; --soft:#8a857d; --line:#e7e3dc; --panel:#ffffff;
+    --accent:#ff6b2c; --ink:#0d0d0f;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.6 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  img { display:block; max-width:100%; }
+  .wrap { max-width:1160px; margin:0 auto; padding:0 28px; }
+
+  /* nav */
+  nav { position:sticky; top:0; z-index:10; background:rgba(251,250,248,.85); backdrop-filter:saturate(1.4) blur(14px); -webkit-backdrop-filter:saturate(1.4) blur(14px); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:650; font-size:19px; letter-spacing:-.01em; }
+  .brand img { width:30px; height:30px; }
+  nav ul { list-style:none; display:flex; gap:28px; margin:0; padding:0; font-size:15px; color:var(--mute); align-items:center; }
+  nav ul a:hover { color:var(--fg); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; background:var(--ink); color:#fff !important; font-weight:550; font-size:15px; }
+  .btn:hover { background:#2a2a2e; }
+  .btn.ghost { background:transparent; color:var(--fg) !important; border:1px solid var(--line); }
+  .btn.ghost:hover { border-color:var(--fg); background:transparent; }
+
+  /* hero */
+  .hero { padding:96px 0 40px; text-align:center; background:radial-gradient(900px 420px at 50% 0%, rgba(255,107,44,.10), transparent 70%); }
+  .eyebrow { font-size:13px; font-weight:650; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+  h1 { font-size:clamp(52px,9vw,104px); letter-spacing:-.035em; line-height:1; margin:0 0 22px; font-weight:700; }
+  .lead { font-size:clamp(19px,2.2vw,23px); color:var(--mute); max-width:680px; margin:0 auto 34px; line-height:1.5; }
+  .cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .collage { position:relative; margin:72px auto 0; max-width:1040px; height:clamp(260px,48vw,540px); }
+  .shot { position:absolute; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:0 30px 60px -20px rgba(20,16,10,.28), 0 8px 20px -8px rgba(20,16,10,.12); }
+  .shot img { width:100%; }
+  .c1 { left:0; top:14%; width:44%; transform:rotate(-3deg); }
+  .c2 { right:0; top:10%; width:44%; transform:rotate(3deg); }
+  .c3 { left:19%; top:0; width:62%; z-index:2; }
+  .bar { height:28px; background:#f3f1ed; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:6px; padding:0 12px; }
+  .bar i { width:10px; height:10px; border-radius:50%; background:#dcd7cf; }
+
+  /* facts strip */
+  .facts { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:48px; }
+  .facts div { padding:28px 24px; text-align:center; }
+  .facts div + div { border-left:1px solid var(--line); }
+  .facts b { display:block; font-size:30px; letter-spacing:-.02em; }
+  .facts span { color:var(--mute); font-size:14px; }
+
+  /* sections */
+  section { padding:110px 0; }
+  .sh { text-align:center; max-width:720px; margin:0 auto 64px; }
+  h2 { font-size:clamp(34px,4.6vw,52px); letter-spacing:-.03em; line-height:1.08; margin:0 0 16px; }
+  .sh p { color:var(--mute); font-size:19px; margin:0; }
+
+  .product { display:grid; grid-template-columns:1fr 1.25fr; gap:64px; align-items:center; margin-bottom:110px; }
+  .product:last-child { margin-bottom:0; }
+  .product.flip .text { order:2; }
+  .tag { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; padding:5px 12px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--mute); margin-bottom:18px; }
+  .tag i { width:8px; height:8px; border-radius:50%; background:#22a565; }
+  .tag.proto i { background:#e6a100; }
+  .product h3 { font-size:clamp(28px,3.2vw,38px); letter-spacing:-.025em; line-height:1.12; margin:0 0 14px; }
+  .product p { color:var(--mute); margin:0 0 20px; font-size:18px; }
+  .product ul { list-style:none; padding:0; margin:0 0 26px; color:var(--fg); font-size:16px; }
+  .product li { padding:7px 0 7px 28px; position:relative; border-top:1px solid var(--line); }
+  .product li:last-child { border-bottom:1px solid var(--line); }
+  .product li::before { content:""; position:absolute; left:4px; top:15px; width:10px; height:10px; border-radius:3px; background:var(--accent); }
+  .more { font-weight:600; color:var(--accent); }
+  .more:hover { text-decoration:underline; }
+  .frame { border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:0 30px 60px -24px rgba(20,16,10,.25); }
+  .note { color:var(--soft); font-size:13px; margin-top:10px; text-align:center; }
+
+  /* live van */
+  .live { background:var(--ink); color:#f2f0ec; }
+  .live .sh p { color:#a09d96; }
+  .live .eyebrow { color:#ff8a57; }
+  .demo { position:relative; border-radius:18px; overflow:hidden; border:1px solid #2a2a2e; background:#e9e2d6; aspect-ratio:1436/960; box-shadow:0 40px 90px -30px rgba(0,0,0,.7); }
+  .demo iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .demo-actions { display:flex; gap:12px; justify-content:center; margin-top:28px; flex-wrap:wrap; }
+  .live .btn { background:#fff; color:var(--ink) !important; }
+  .live .btn:hover { background:#e9e6e0; }
+  .live .note { color:#7d7a74; }
+  .demo-mobile { display:none; }
+
+  /* company */
+  .company { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:34px; }
+  .card h4 { margin:0 0 14px; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:650; }
+  .card address, .card p { font-style:normal; margin:0; font-size:18px; line-height:1.7; }
+  .card a { border-bottom:1px solid var(--line); } .card a:hover { border-color:var(--fg); }
+
+  footer { border-top:1px solid var(--line); padding:40px 0 56px; color:var(--mute); font-size:14px; }
+  footer .wrap { display:flex; flex-wrap:wrap; gap:16px 40px; justify-content:space-between; align-items:center; }
+  footer .links { display:flex; gap:22px; }
+  footer a:hover { color:var(--fg); }
+
+  @media (max-width: 860px) {
+    nav ul li.hide { display:none; }
+    .product, .product.flip { grid-template-columns:1fr; gap:32px; margin-bottom:80px; }
+    .product.flip .text { order:0; }
+    .company { grid-template-columns:1fr; }
+    .facts { grid-template-columns:1fr; }
+    .facts div + div { border-left:0; border-top:1px solid var(--line); }
+    section { padding:80px 0; }
+    .demo { display:none; }
+    .demo-mobile { display:block; }
+  }
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <h1>Rajababa LLC</h1>
-  <p class="lead">A Nevada limited liability company that builds software — for developers, for gyms, and for the open road.</p>
+
+<nav><div class="wrap">
+  <a class="brand" href="/"><img src="/assets/logo.svg" alt="">Rajababa</a>
+  <ul>
+    <li class="hide"><a href="#products">Products</a></li>
+    <li class="hide"><a href="#van">Try the van</a></li>
+    <li class="hide"><a href="#company">Company</a></li>
+    <li><a class="btn" href="mailto:ameet@rajababa.io">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Software company · Las Vegas, Nevada</p>
+  <h1>Rajababa</h1>
+  <p class="lead">We build software that runs real things — an AI engine that writes code, a front door that runs itself, and the control screen of a camper van.</p>
+  <div class="cta">
+    <a class="btn" href="#products">See our products</a>
+    <a class="btn ghost" href="#van">Try the van screen →</a>
+  </div>
+
+  <div class="collage" aria-hidden="true">
+    <div class="shot c1"><div class="bar"><i></i><i></i><i></i></div><img src="/assets/door-codes.webp" alt=""></div>
+    <div class="shot c2"><div class="bar"><i></i><i></i><i></i></div><img src="/assets/van-screen.webp" alt=""></div>
+    <div class="shot c3"><div class="bar"><i></i><i></i><i></i></div><img src="/assets/hadji-app.webp" alt=""></div>
+  </div>
+
+  <div class="facts">
+    <div><b>3</b><span>products in use or in testing</span></div>
+    <div><b>Every day</b><span>a gym's front door runs on our software</span></div>
+    <div><b>Nevada, USA</b><span>Rajababa LLC, based in Las Vegas</span></div>
+  </div>
 </div></header>
 
-<main class="wrap">
-  <h2>What we build</h2>
-  <div class="cards">
-    <div class="card">
+<section id="products"><div class="wrap">
+  <div class="sh">
+    <p class="eyebrow">Products</p>
+    <h2>What we build.</h2>
+    <p>One engine, and real things built with it.</p>
+  </div>
+
+  <div class="product">
+    <div class="text">
+      <span class="tag"><i></i>Live</span>
       <h3>Hadji</h3>
-      <p>The AI coding-agent engine. Agents build the work; a person approves it.</p>
-      <a class="link" href="https://hadji.ai">hadji.ai →</a>
+      <p>The AI coding-agent engine. Hadji plans, builds, tests, reviews and ships software — many jobs at once — and a person approves the work.</p>
+      <ul>
+        <li>Works with any AI model</li>
+        <li>Runs many jobs in parallel</li>
+        <li>Approve changes from your phone</li>
+      </ul>
+      <a class="more" href="https://hadji.ai">Visit hadji.ai →</a>
     </div>
-    <div class="card">
+    <div class="frame"><img src="/assets/hadji-app.webp" alt="The Hadji app fixing a checkout bug, with a phone asking for approval" loading="lazy"></div>
+  </div>
+
+  <div class="product flip">
+    <div class="text">
+      <span class="tag"><i></i>In use every day</span>
       <h3>Door codes for OMNI Tahoe</h3>
-      <p>Buy a membership on the website, get a door code by email. Runs the front door every day.</p>
+      <p>Buy a membership on the website, get a door code by email. Runs the gym's front door every day.</p>
+      <ul>
+        <li>Codes issued the moment someone joins</li>
+        <li>Access ends automatically when a membership lapses</li>
+        <li>A dashboard of members and daily activity</li>
+      </ul>
+      <a class="more" href="https://omnitahoe.com" target="_blank" rel="noopener">omnitahoe.com →</a>
     </div>
-    <div class="card">
-      <h3>A control screen for a camper van</h3>
-      <p>Heat, power, water and lights on the van's screen and a phone app.</p>
+    <div>
+      <div class="frame"><img src="/assets/door-codes.webp" alt="The gym's dashboard: members, recent activity, and 30 days of purchases" loading="lazy"></div>
+      <p class="note">Names and emails replaced.</p>
     </div>
   </div>
 
-  <section class="about">
-    <h2>Company</h2>
-    <address>
-      <b style="color:var(--fg)">Rajababa LLC</b>, a Nevada limited liability company<br>
-      1810 E Sahara Ave, Suite 75688<br>
-      Las Vegas, NV 89104, USA<br>
-      <a href="mailto:ameet@rajababa.io">ameet@rajababa.io</a>
-    </address>
-  </section>
-</main>
+  <div class="product">
+    <div class="text">
+      <span class="tag proto"><i></i>Working prototype</span>
+      <h3>A control screen for a camper van</h3>
+      <p>Heat, power, water and lights on the van's screen and a phone app that mirrors it — first sketch to working prototype in days.</p>
+      <ul>
+        <li>Heating, battery, solar and tanks at a glance</li>
+        <li>Lights and switches on a picture of the van</li>
+        <li>Scenes like Arrive, Sleep and Leave</li>
+      </ul>
+      <a class="more" href="#van">Try it below →</a>
+    </div>
+    <div class="frame"><img src="/assets/van.webp" alt="The camper van's control screen and the phone app that mirrors it" loading="lazy"></div>
+  </div>
+</div></section>
+
+<section class="live" id="van"><div class="wrap">
+  <div class="sh">
+    <p class="eyebrow">Try it</p>
+    <h2>Drive the van screen yourself.</h2>
+    <p>This is the working prototype. Tap the lights, change the heat, run a scene, or switch to the phone app.</p>
+  </div>
+  <div class="demo"><iframe src="/van/" title="Camper van control screen — interactive prototype" loading="lazy"></iframe></div>
+  <a class="demo-mobile frame" href="/van/"><img src="/assets/van-screen.webp" alt="The van control screen — tap to open the prototype"></a>
+  <div class="demo-actions">
+    <a class="btn" href="/van/" target="_blank" rel="noopener">Open full screen ↗</a>
+  </div>
+  <p class="note">Concept prototype for a Noovo Next camper van. Not affiliated with Noovo or Garmin.</p>
+</div></section>
+
+<section id="company"><div class="wrap">
+  <div class="sh">
+    <p class="eyebrow">Company</p>
+    <h2>About Rajababa.</h2>
+    <p>Rajababa LLC is a small software company based in Las Vegas, Nevada.</p>
+  </div>
+  <div class="company">
+    <div class="card">
+      <h4>Legal entity</h4>
+      <address><b>Rajababa LLC</b><br>A Nevada limited liability company<br>1810 E Sahara Ave, Suite 75688<br>Las Vegas, NV 89104, USA</address>
+    </div>
+    <div class="card">
+      <h4>Contact</h4>
+      <p><a href="mailto:ameet@rajababa.io">ameet@rajababa.io</a></p>
+      <p style="color:var(--mute);font-size:16px;margin-top:10px">For product questions, partnerships and support.</p>
+    </div>
+  </div>
+</div></section>
 
 <footer><div class="wrap">
   <span>© 2026 Rajababa LLC · <a href="mailto:ameet@rajababa.io">ameet@rajababa.io</a></span>
-  <span><a href="https://hadji.ai/privacy/">Privacy</a> · <a href="https://hadji.ai/terms/">Terms</a></span>
+  <span class="links"><a href="https://hadji.ai/privacy/">Privacy</a><a href="https://hadji.ai/terms/">Terms</a></span>
 </div></footer>
 </body>
 </html>
