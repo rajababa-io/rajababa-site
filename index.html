@@ -2,508 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hadji — The AI software factory</title>
-<meta name="description" content="The AI software factory. Clear the backlog: Hadji plans, builds, tests, reviews and ships — many jobs at once, on any AI model, run from your phone, and stops for your OK on anything that matters.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#08090A">
-<meta property="og:title" content="Hadji — The AI software factory">
-<meta property="og:description" content="Clear the backlog. Many jobs at once. Any AI model. Run it from your phone.">
-<meta property="og:image" content="https://hadji.ai/assets/og.png">
-<meta property="og:url" content="https://hadji.ai/">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/assets/icon-180.png">
-<link rel="canonical" href="https://hadji.ai/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rajababa LLC</title>
+<meta name="description" content="Rajababa LLC is a Nevada limited liability company that builds software: Hadji, door-code access for gyms, and a camper van control screen.">
 <style>
-  :root {
-    --bg: #08090A; --panel: #0F1011; --panel2: #141516; --line: #1E1F22; --line2: #2A2B2F;
-    --fg: #F7F8F8; --mute: #8A8F98; --dim: #5C6068; --ink: #111111;
-    --tan: #FF6B2C; --green: #4CB782; --amber: #F2C94C; --blue: #5E9EFF; --red: #EB5757;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
+  :root { --bg:#0d0d0f; --fg:#f2f0ec; --mute:#a09d96; --line:#2a2a2e; --panel:#151518; --accent:#ff6b2c; }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 Outfit, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
-
-  /* top bar */
-  header { position: sticky; top: 0; z-index: 10; background: rgba(8,9,10,.8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
-  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; letter-spacing: -.01em; }
-  .brand img { height: 28px; width: auto; display: block; }
-  nav { display: flex; align-items: center; gap: 28px; font-size: 14px; color: var(--mute); }
-  nav a:hover { color: var(--fg); }
-  .pill { background: var(--fg); color: var(--bg); padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; white-space: nowrap; }
-  .pill:hover { background: #fff; }
-
-  /* hero: short headline, then the app fills the first screen */
-  .hero { padding: 44px 0 30px; display: flex; justify-content: space-between; align-items: end; gap: 40px; }
-  h1 { font-size: clamp(36px, 3.8vw, 52px); line-height: 1.02; letter-spacing: -.04em; font-weight: 600; margin: 0; }
-  .hero .eyebrow { display: block; margin-bottom: 14px; color: var(--tan); font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-  .hero-sub { margin-top: 12px; color: var(--mute); font-size: 18px; max-width: 62ch; }
-  .hero-sub b { color: var(--fg); font-weight: 500; }
-  .hero-cta { display: flex; flex-direction: column; align-items: end; gap: 12px; font-size: 15px; color: var(--mute); flex: none; }
-  .hero-cta .pill { padding: 11px 20px; font-size: 15px; }
-  .hero-cta a:not(.pill):hover { color: var(--fg); }
-
-  .stage { position: relative; }
-  .app { border: 1px solid var(--line2); border-radius: 14px; background: var(--panel); overflow: hidden;
-         box-shadow: 0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.7), 0 -30px 120px rgba(255,107,44,.05);
-         display: grid; grid-template-columns: 220px 1fr 360px; height: 600px; font-size: 13.5px; }
-  .side { border-right: 1px solid var(--line); padding: 14px 10px; color: var(--mute); }
-  .side .org { display: flex; align-items: center; gap: 8px; color: var(--fg); font-weight: 600; padding: 4px 8px 14px; }
-  .side .org img { width: 18px; }
-  .side .it { display: flex; align-items: center; gap: 9px; padding: 6px 8px; border-radius: 6px; }
-  .side .it.on { background: var(--panel2); color: var(--fg); }
-  .side .it .n { margin-left: auto; font-size: 12px; color: var(--dim); }
-  .side h6 { margin: 18px 8px 6px; font-size: 12px; font-weight: 500; color: var(--dim); }
-  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-  .ico { width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 4px; opacity: .8; flex: none; }
-
-  .main { display: flex; flex-direction: column; min-width: 0; }
-  .bar { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px; border-bottom: 1px solid var(--line); color: var(--mute); white-space: nowrap; overflow: hidden; }
-  .bar b { color: var(--fg); font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
-  .bar .chip { margin-left: auto; }
-  .chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line2); border-radius: 999px; padding: 2px 9px; font-size: 12px; color: var(--mute); }
-  .live { color: var(--tan); border-color: rgba(255,107,44,.35); }
-  .live i { width: 6px; height: 6px; border-radius: 50%; background: var(--tan); animation: pulse 1.4s infinite; }
-  @keyframes pulse { 50% { opacity: .25; } }
-
-  .run { padding: 22px 26px 0; overflow: hidden; flex: 1; }
-  .run h3 { margin: 0 0 4px; font-size: 21px; font-weight: 600; letter-spacing: -.01em; }
-  .run .ask { color: var(--mute); margin: 0 0 16px; }
-  .steps { list-style: none; margin: 0 0 16px; padding: 0; }
-  .steps li { display: flex; align-items: center; gap: 10px; padding: 5px 0; color: var(--mute); }
-  .steps li.done { color: var(--fg); }
-  .steps li .s { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--dim); flex: none; display: grid; place-items: center; font-size: 10px; }
-  .steps li.done .s { background: var(--green); border-color: var(--green); color: var(--bg); }
-  .steps li.now .s { border-color: var(--tan); border-top-color: transparent; animation: spin 1s linear infinite; }
-  .steps li .t { margin-left: auto; color: var(--dim); font-size: 12px; font-family: var(--mono); }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .term { background: #060707; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font: 12.5px/1.65 var(--mono); color: #9DA3AC; height: 200px; overflow: hidden; }
-  .term .ok { color: var(--green); } .term .k { color: var(--tan); } .term .c { color: var(--dim); }
-  .term .cur { display: inline-block; width: 7px; height: 14px; background: var(--fg); vertical-align: -2px; animation: pulse 1s steps(1) infinite; }
-
-  .right { border-left: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
-  .fileh { display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-bottom: 1px solid var(--line); color: var(--mute); font: 12px var(--mono); }
-  .fileh .plus { color: var(--green); margin-left: auto; } .fileh .minus { color: var(--red); }
-  .diff { font: 12px/1.7 var(--mono); padding: 8px 0; color: #9DA3AC; flex: 1; overflow: hidden; }
-  .diff div { padding: 0 14px; white-space: pre; }
-  .diff .a { background: rgba(76,183,130,.09); color: #C8EBD7; } .diff .d { background: rgba(235,87,87,.09); color: #F0C2C2; }
-  .diff .ln { color: var(--dim); display: inline-block; width: 26px; }
-  .wait { margin: 12px; border: 1px solid rgba(255,107,44,.35); background: rgba(255,107,44,.06); border-radius: 12px; padding: 14px; }
-  .wait .h { display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 6px; }
-  .wait p { margin: 0 0 12px; color: #C9CCD1; font-size: 13.5px; }
-  .btns { display: flex; gap: 8px; }
-  .btn { flex: 1; text-align: center; padding: 8px; border-radius: 8px; font-weight: 600; font-size: 13.5px; border: 1px solid var(--line2); color: var(--fg); }
-  .btn.go { background: var(--tan); border-color: var(--tan); color: var(--ink); }
-
-  /* phone */
-  .phone { width: 250px; height: 500px; border-radius: 40px; background: #000; border: 1px solid var(--line2); padding: 10px;
-           box-shadow: 0 30px 90px rgba(0,0,0,.8); }
-  .phone .scr { height: 100%; border-radius: 31px; background: var(--panel); overflow: hidden; display: flex; flex-direction: column; font-size: 12.5px; }
-  .phone .notch { width: 80px; height: 22px; background: #000; border-radius: 0 0 14px 14px; margin: 0 auto 8px; flex: none; }
-  .phone .ph { display: flex; align-items: center; gap: 8px; padding: 0 14px 10px; border-bottom: 1px solid var(--line); font-weight: 600; }
-  .phone .ph img { width: 18px; }
-  .phone .msgs { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-  .phone .me { align-self: end; background: var(--fg); color: var(--ink); border-radius: 14px 14px 4px 14px; padding: 8px 11px; max-width: 85%; }
-  .phone .hj { background: var(--panel2); border: 1px solid var(--line); border-radius: 14px 14px 14px 4px; padding: 9px 11px; color: #C9CCD1; max-width: 92%; }
-  .phone .card { border: 1px solid rgba(255,107,44,.35); background: rgba(255,107,44,.06); border-radius: 12px; padding: 10px; }
-  .phone .card b { display: block; margin-bottom: 4px; }
-  .phone .card .btns { margin-top: 8px; }
-  .phone .btn { padding: 7px; font-size: 12.5px; }
-  .phone .inp { margin: 10px; border: 1px solid var(--line2); border-radius: 999px; padding: 8px 12px; color: var(--dim); }
-  .stage .phone { position: absolute; right: -26px; bottom: -48px; transform: scale(.82); transform-origin: bottom right; }
-  /* On wide screens the phone carries the approval, so the window's own card steps aside. */
-  @media (min-width: 1101px) { .stage .wait { display: none; } }
-
-  /* sections */
-  section { border-top: 1px solid var(--line); padding: 120px 0 110px; }
-  #team { margin-top: 110px; }
-  .sh { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 64px; }
-  h2 { font-size: clamp(36px, 4.4vw, 56px); line-height: 1.02; letter-spacing: -.035em; font-weight: 600; margin: 0; }
-  .sh p { font-size: 19px; color: var(--mute); margin: 6px 0 0; max-width: 36ch; }
-  .sh p b { color: var(--fg); font-weight: 500; }
-  .feat { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 44px; font-size: 14px; color: var(--mute); }
-  .feat > div { padding-left: 18px; border-left: 1px solid var(--line); }
-  .feat > div:first-child { border: 0; padding: 0; color: var(--dim); }
-  .feat span { display: block; padding: 3px 0; }
-
-  .frame { border: 1px solid var(--line2); border-radius: 14px; background: var(--panel); overflow: hidden; box-shadow: 0 30px 100px rgba(0,0,0,.6); }
-
-  /* board */
-  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px; font-size: 13px; }
-  .col h5 { display: flex; align-items: center; gap: 8px; margin: 2px 4px 10px; font-size: 13px; font-weight: 500; }
-  .col h5 em { font-style: normal; color: var(--dim); }
-  .card { background: var(--panel2); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; margin-bottom: 8px; }
-  .card .id { display: flex; justify-content: space-between; font: 11px var(--mono); color: var(--dim); }
-  .card .tt { margin: 3px 0 8px; }
-  .card .meta { display: flex; gap: 6px; align-items: center; color: var(--mute); font-size: 12px; }
-  .kind { font: 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-  .k-build { color: var(--tan); } .k-connect { color: var(--blue); } .k-answer { color: var(--green); } .k-plan { color: var(--amber); }
-  .ava { width: 18px; height: 18px; border-radius: 5px; overflow: hidden; flex: none; }
-  .ava img { width: 18px; display: block; }
-  .prog { height: 3px; border-radius: 3px; background: var(--line2); margin-top: 9px; overflow: hidden; }
-  .prog i { display: block; height: 100%; background: var(--tan); animation: grow 6s ease-in-out infinite alternate; }
-  @keyframes grow { from { width: 20%; } to { width: 85%; } }
-
-  /* models */
-  .models { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
-  .jobs .r { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
-  .jobs .r:last-child { border: 0; }
-  .jobs .r small { display: block; color: var(--mute); font-size: 13px; }
-  .pick { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line2); background: var(--panel2); border-radius: 8px; padding: 6px 10px; font: 12.5px var(--mono); color: var(--fg); }
-  .pick::after { content: "▾"; color: var(--dim); }
-  .pick i { width: 7px; height: 7px; border-radius: 50%; }
-  .keys { padding: 20px; font-size: 14.5px; }
-  .keys h4 { margin: 0 0 14px; font-size: 13px; font-weight: 500; color: var(--mute); }
-  .keys .r { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
-  .keys .r span { margin-left: auto; font: 12px var(--mono); }
-  .keys .note { color: var(--mute); font-size: 13.5px; margin: 16px 0 0; }
-
-  /* checks + record */
-  .two { display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px; }
-  .checks { padding: 8px 18px 12px; }
-  .checks .r { display: flex; align-items: center; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--line); font-size: 14px; }
-  .checks .r:last-child { border: 0; }
-  .checks .r .t { margin-left: auto; font: 12px var(--mono); color: var(--dim); }
-  .ok { color: var(--green); }
-  .rec { font-size: 14px; }
-  .rec .r { display: grid; grid-template-columns: 52px 1fr auto; gap: 14px; padding: 11px 18px; border-bottom: 1px solid var(--line); color: var(--mute); }
-  .rec .r:last-child { border: 0; }
-  .rec .r b { color: var(--fg); font-weight: 500; }
-  .rec .r .t { font: 12px var(--mono); color: var(--dim); }
-
-  /* phone section */
-  .mobile { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
-  .mobile ul { list-style: none; padding: 0; margin: 0; font-size: 17px; }
-  .mobile li { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
-  .mobile li b { display: block; font-weight: 600; }
-  .mobile li span { color: var(--mute); font-size: 15px; }
-  .mobile li i { font-style: normal; color: var(--tan); font: 13px var(--mono); padding-top: 3px; }
-
-  /* built with */
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .stat { border: 1px solid var(--line2); border-radius: 14px; background: var(--panel); padding: 22px 24px; }
-  .stat b { display: block; font-size: 44px; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
-  .stat span { color: var(--mute); font-size: 14px; }
-  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .shots .frame img { width: 100%; display: block; filter: brightness(.9); }
-  .cap { padding: 16px 18px; border-top: 1px solid var(--line); }
-  .cap b { display: block; font-weight: 600; font-size: 17px; }
-  .cap b a { border-bottom: 1px solid var(--line2); } .cap b a:hover { border-color: var(--fg); }
-  .cap span { color: var(--mute); font-size: 14px; }
-
-  .end { text-align: center; padding: 150px 0; border-top: 1px solid var(--line); background: radial-gradient(600px 260px at 50% 100%, rgba(255,107,44,.10), transparent); }
-  .end h2 { margin-bottom: 14px; }
-  .end p { color: var(--mute); font-size: 19px; margin: 0 0 32px; }
-  .big { display: inline-block; background: var(--fg); color: var(--bg); padding: 13px 22px; border-radius: 999px; font-weight: 600; }
-  .big:hover { background: #fff; }
-  footer { border-top: 1px solid var(--line); padding: 40px 0 60px; color: var(--dim); font-size: 14px; }
-  footer .wrap { display: flex; justify-content: space-between; align-items: center; }
-  footer .legal a { margin-right: 22px; } footer .legal a:hover { color: var(--fg); }
-
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
-
-  @media (max-width: 1100px) {
-    .app { grid-template-columns: 1fr 340px; } .side { display: none; }
-    .stage .phone { display: none; }
-  }
-  @media (max-width: 860px) {
-    .wrap { padding: 0 20px; }
-    nav a:not(.pill) { display: none; }
-    .hero { flex-direction: column; align-items: start; gap: 22px; padding-top: 36px; }
-    .hero-cta { align-items: start; }
-    .app { grid-template-columns: 1fr; height: auto; } .right { display: none; }
-    .run { padding-bottom: 20px; } .steps li .t { display: none; }
-    #team { margin-top: 0; }
-    section { padding: 80px 0; }
-    .sh, .models, .two, .mobile, .shots, .stats { grid-template-columns: 1fr; }
-    .sh { gap: 16px; margin-bottom: 40px; }
-    .board { grid-template-columns: 1fr 1fr; }
-    .feat { grid-template-columns: 1fr; gap: 12px; } .feat > div { border: 0; padding: 0; }
-    .mobile .phone { margin: 0 auto; }
-    footer .wrap { flex-direction: column; gap: 10px; }
-  }
-  @media (max-width: 520px) { .board { grid-template-columns: 1fr; } }
-  .why { text-align: center; padding: 120px 0 40px; }
-  .why .mark { height: min(120px, 20vw); margin: 0 auto 40px; display: block; }
-  .why .eyebrow { color: var(--tan); font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-  .why h2 { max-width: 900px; margin: 14px auto 0; }
-  .why p { max-width: 640px; margin: 22px auto 0; font-size: 20px; color: var(--mute); }
-  .why p a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--line2); text-underline-offset: 3px; }
-  .why .weave { font-size: 15px; color: var(--dim); margin-top: 28px; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  a { color:inherit; text-decoration:none; border-bottom:1px solid var(--line); }
+  a:hover { border-color:var(--fg); }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  header { padding:96px 0 56px; }
+  h1 { font-size:clamp(40px,7vw,64px); letter-spacing:-.02em; line-height:1.1; margin:0 0 16px; }
+  .lead { color:var(--mute); font-size:20px; max-width:640px; margin:0; }
+  h2 { font-size:28px; letter-spacing:-.01em; margin:0 0 24px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-bottom:72px; }
+  .card { border:1px solid var(--line); border-radius:14px; background:var(--panel); padding:24px; }
+  .card h3 { margin:0 0 8px; font-size:20px; }
+  .card p { margin:0 0 12px; color:var(--mute); font-size:16px; }
+  .card .link { font-size:15px; color:var(--accent); border:0; }
+  .about { margin-bottom:72px; }
+  address { font-style:normal; color:var(--mute); }
+  footer { border-top:1px solid var(--line); padding:32px 0 48px; color:var(--mute); font-size:14px; }
+  footer .wrap { display:flex; flex-wrap:wrap; gap:12px 32px; justify-content:space-between; }
 </style>
 </head>
 <body>
-
 <header><div class="wrap">
-  <a class="brand" href="/" aria-label="Hadji home"><img src="/assets/wordmark.svg" alt="Hadji"></a>
-  <nav>
-    <a href="#factory">Factory</a><a href="#line">The line</a><a href="#models">Any model</a><a href="#phone">Phone</a><a href="#built">Proof</a><a href="#why">Why Hadji</a>
-    <a class="pill" href="https://docs.google.com/forms/d/e/1FAIpQLSeXhepqTlClRulPfzfcVWBVjMBx3YRTRbz-kNk48ORORa-Zxw/viewform" target="_blank" rel="noopener">Get early access</a>
-  </nav>
+  <h1>Rajababa LLC</h1>
+  <p class="lead">A Nevada limited liability company that builds software — for developers, for gyms, and for the open road.</p>
 </div></header>
 
-<main>
-<div class="wrap">
-  <div class="hero">
-    <div>
-      <span class="eyebrow">The AI software factory</span>
-      <h1>Clear the backlog.</h1>
-      <div class="hero-sub"><b>Hadji plans, builds, tests, reviews and ships — many jobs at once.</b> New apps, daily fixes, connections between tools, full rewrites. Any AI model. Run it from your phone.</div>
+<main class="wrap">
+  <h2>What we build</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Hadji</h3>
+      <p>The AI coding-agent engine. Agents build the work; a person approves it.</p>
+      <a class="link" href="https://hadji.ai">hadji.ai →</a>
     </div>
-    <div class="hero-cta">
-      <a class="pill" href="https://docs.google.com/forms/d/e/1FAIpQLSeXhepqTlClRulPfzfcVWBVjMBx3YRTRbz-kNk48ORORa-Zxw/viewform" target="_blank" rel="noopener">Get early access</a>
-      <a href="#built"><b style="color:var(--fg)">Live</b>&nbsp; Door codes for OMNI Tahoe →</a>
+    <div class="card">
+      <h3>Door codes for OMNI Tahoe</h3>
+      <p>Buy a membership on the website, get a door code by email. Runs the front door every day.</p>
+    </div>
+    <div class="card">
+      <h3>A control screen for a camper van</h3>
+      <p>Heat, power, water and lights on the van's screen and a phone app.</p>
     </div>
   </div>
 
-  <div class="stage" aria-label="The Hadji app fixing a checkout bug and waiting for approval">
-    <div class="app">
-      <aside class="side">
-        <div class="org"><img src="/assets/icon.svg" alt="">Your company ▾</div>
-        <div class="it"><span class="ico"></span>Inbox<span class="n">3</span></div>
-        <div class="it on"><span class="ico"></span>Running now<span class="n">4</span></div>
-        <div class="it"><span class="ico"></span>Needs you<span class="n" style="color:var(--tan)">1</span></div>
-        <div class="it"><span class="ico"></span>Done</div>
-        <h6>Projects</h6>
-        <div class="it"><span class="dot" style="background:var(--tan)"></span>Online shop</div>
-        <div class="it"><span class="dot" style="background:var(--green)"></span>Gym door app</div>
-        <div class="it"><span class="dot" style="background:var(--blue)"></span>Van screen</div>
-        <div class="it"><span class="dot" style="background:var(--amber)"></span>Weekly numbers</div>
-        <h6>Agents</h6>
-        <div class="it"><span class="dot" style="background:var(--green)"></span>Builder<span class="n">busy</span></div>
-        <div class="it"><span class="dot" style="background:var(--green)"></span>Checker<span class="n">busy</span></div>
-        <div class="it"><span class="dot" style="background:var(--dim)"></span>Writer<span class="n">idle</span></div>
-      </aside>
-
-      <div class="main">
-        <div class="bar">Online shop › <b>Checkout total off by a cent</b><span class="chip live"><i></i>Building</span></div>
-        <div class="run">
-          <h3>Checkout total off by a cent</h3>
-          <p class="ask">“Customers say the total is a cent off with a coupon. Fix it before the weekend sale.”</p>
-          <ul class="steps">
-            <li class="done"><span class="s">✓</span>Found the cause — tax rounded per line, not per cart<span class="t">0:42</span></li>
-            <li class="done"><span class="s">✓</span>Wrote a test that fails the old way<span class="t">1:10</span></li>
-            <li class="done"><span class="s">✓</span>Fixed the rounding<span class="t">2:31</span></li>
-            <li class="now"><span class="s"></span>Running all checks<span class="t" id="clock">3:04</span></li>
-            <li><span class="s"></span>Wait for your OK — touches payments</li>
-          </ul>
-          <div class="term" id="term"></div>
-        </div>
-      </div>
-
-      <div class="right">
-        <div class="fileh">cart/total.ts<span class="plus">+6</span><span class="minus">−3</span></div>
-        <div class="diff">
-<div><span class="ln">18</span>export function cartTotal(lines, coupon) {</div>
-<div class="d"><span class="ln">19</span>  const taxed = lines.map(l =&gt;</div>
-<div class="d"><span class="ln">20</span>    round(l.price * (1 + l.taxRate)));</div>
-<div class="d"><span class="ln">21</span>  return sum(taxed) - coupon;</div>
-<div class="a"><span class="ln">19</span>  const net = sum(lines.map(l =&gt; l.price));</div>
-<div class="a"><span class="ln">20</span>  const tax = sum(lines.map(l =&gt;</div>
-<div class="a"><span class="ln">21</span>    l.price * l.taxRate));</div>
-<div class="a"><span class="ln">22</span>  // round once, on the whole cart</div>
-<div class="a"><span class="ln">23</span>  return round(net + tax - coupon);</div>
-<div class="a"><span class="ln">24</span>}</div>
-        </div>
-        <div class="wait">
-          <div class="h"><img src="/assets/icon.svg" width="16" alt="">Waiting for you</div>
-          <p>Fix is done and every check passes. It touches payments, so I paused before shipping.</p>
-          <div class="btns"><span class="btn go">Approve &amp; ship</span><span class="btn">Show me first</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phone" aria-hidden="true"><div class="scr">
-      <div class="notch"></div>
-      <div class="ph"><img src="/assets/icon.svg" alt="">Hadji</div>
-      <div class="msgs">
-        <div class="me">How's the checkout fix?</div>
-        <div class="hj">Done and tested. One thing touches payments — your call.</div>
-        <div class="card"><b>Ship the checkout fix?</b><span style="color:#C9CCD1">6 of 6 checks passed</span>
-          <div class="btns"><span class="btn go">Approve</span><span class="btn">Later</span></div></div>
-      </div>
-      <div class="inp">Ask Hadji…</div>
-    </div></div>
-  </div>
-</div>
-
-<section id="team"><div class="wrap">
-  <div class="sh" style="margin-bottom:0">
-    <h2>One product mind.<br>A whole software team.</h2>
-    <p>You decide what gets made and what good looks like. <b>Hadji runs the floor</b> — and stops for your OK on anything that touches money, customers or live systems.</p>
-  </div>
-</div></section>
-
-<section id="factory"><div class="wrap">
-  <div class="sh">
-    <h2>Many jobs<br>at once.</h2>
-    <p>Put the backlog in. Builders, checkers and writers work it side by side — <b>no one has to drive each job.</b> Come back to finished work.</p>
-  </div>
-  <div class="frame"><div class="board">
-    <div class="col"><h5>○ Queued <em>3</em></h5>
-      <div class="card"><div class="id"><span>Plan</span><span class="kind k-plan">plan</span></div><div class="tt">Gift cards at checkout</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Next up</div></div>
-      <div class="card"><div class="id"><span>Gym</span><span class="kind k-connect">connect</span></div><div class="tt">Text the door code, not just email</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Queued</div></div>
-      <div class="card"><div class="id"><span>Numbers</span><span class="kind k-answer">answer</span></div><div class="tt">Which members lapsed this month?</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Queued</div></div>
-    </div>
-    <div class="col"><h5><span style="color:var(--tan)">◐</span> Working <em>4</em></h5>
-      <div class="card"><div class="id"><span>Shop</span><span class="kind k-build">build</span></div><div class="tt">Checkout total off by a cent</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Running checks</div><div class="prog"><i></i></div></div>
-      <div class="card"><div class="id"><span>Van</span><span class="kind k-build">build</span></div><div class="tt">Water tank level on the phone app</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Writing code</div><div class="prog"><i style="animation-delay:-2s"></i></div></div>
-      <div class="card"><div class="id"><span>Numbers</span><span class="kind k-connect">connect</span></div><div class="tt">Monday sales email from the shop + bank</div><div class="meta"><span class="ava"><img src="/assets/icon.svg" alt=""></span>Linking accounts</div><div class="prog"><i style="animation-delay:-4s"></i></div></div>
-    </div>
-    <div class="col"><h5><span style="color:var(--amber)">●</span> Needs you <em>1</em></h5>
-      <div class="card" style="border-color:rgba(255,107,44,.4)"><div class="id"><span>Shop</span><span class="kind k-build">build</span></div><div class="tt">Refunds for part of an order</div><div class="meta" style="color:var(--tan)">Touches payments — your OK</div></div>
-    </div>
-    <div class="col"><h5><span style="color:var(--green)">✓</span> Done <em>27</em></h5>
-      <div class="card"><div class="id"><span>Gym</span><span class="kind k-build">build</span></div><div class="tt">Door code on purchase</div><div class="meta ok">Live</div></div>
-      <div class="card"><div class="id"><span>Van</span><span class="kind k-build">build</span></div><div class="tt">Heat and lights screen</div><div class="meta ok">Live</div></div>
-      <div class="card"><div class="id"><span>Numbers</span><span class="kind k-answer">answer</span></div><div class="tt">Best-selling plan last quarter</div><div class="meta ok">Answered</div></div>
-    </div>
-  </div></div>
-  <div class="feat"><div>What comes off the line</div><div><span>New apps</span><span>Daily fixes and features</span></div><div><span>Connections between tools</span><span>Full rewrites</span></div></div>
-</div></section>
-
-<section id="line"><div class="wrap">
-  <div class="sh">
-    <h2>The whole line,<br>built in.</h2>
-    <p>Plan, build, test, review, ship. Every change is tested and reviewed by a second agent. Money, customers, anything live — <b>Hadji pauses and asks.</b> And every step is written down: who asked, what changed, who said yes.</p>
-  </div>
-  <div class="two">
-    <div class="frame"><div class="fileh">checks<span class="plus">6 of 6 passed</span></div><div class="checks">
-      <div class="r"><span class="ok">✓</span>Types<span class="t">4s</span></div>
-      <div class="r"><span class="ok">✓</span>Lint<span class="t">6s</span></div>
-      <div class="r"><span class="ok">✓</span>412 tests<span class="t">38s</span></div>
-      <div class="r"><span class="ok">✓</span>New test: coupon cart is exact<span class="t">0.2s</span></div>
-      <div class="r"><span class="ok">✓</span>Second-agent review — no problems<span class="t">1m 12s</span></div>
-      <div class="r"><span class="ok">✓</span>Builds for the live site<span class="t">51s</span></div>
-    </div></div>
-    <div class="frame rec"><div class="fileh">record</div>
-      <div class="r"><span class="t">09:12</span><span><b>You</b> asked: fix the cent-off checkout total</span><span class="t">phone</span></div>
-      <div class="r"><span class="t">09:13</span><span><b>Builder</b> found the cause</span><span class="t">0:42</span></div>
-      <div class="r"><span class="t">09:15</span><span><b>Builder</b> fixed rounding, added a test</span><span class="t">+6 −3</span></div>
-      <div class="r"><span class="t">09:17</span><span><b>Checker</b> passed 6 of 6 checks</span><span class="t">2m 14s</span></div>
-      <div class="r"><span class="t">09:17</span><span><b>Hadji</b> paused — touches payments</span><span class="t" style="color:var(--tan)">waiting</span></div>
-      <div class="r"><span class="t">09:31</span><span><b>You</b> approved from your phone</span><span class="t ok">shipped</span></div>
-    </div>
-  </div>
-  <div class="feat"><div>What you get</div><div><span>You choose what needs a yes</span><span>Fixes its own failed checks</span></div><div><span>A full record</span><span>Nothing hidden</span></div></div>
-</div></section>
-
-<section id="models"><div class="wrap">
-  <div class="sh">
-    <h2>Any model.<br>Yours.</h2>
-    <p>Bring your own AI accounts. Pick the best model for each job, and <b>switch the day a better one ships</b>. No lock-in, no markup on what you already pay for.</p>
-  </div>
-  <div class="models">
-    <div class="frame jobs">
-      <div class="r"><div>Write and fix code<small>Builder</small></div><span class="pick"><i style="background:#D97757"></i>Claude</span></div>
-      <div class="r"><div>Review every change<small>Checker</small></div><span class="pick"><i style="background:#10A37F"></i>GPT</span></div>
-      <div class="r"><div>Read long documents<small>Researcher</small></div><span class="pick"><i style="background:var(--blue)"></i>Gemini</span></div>
-      <div class="r"><div>Quick sorting and summaries<small>Writer</small></div><span class="pick"><i style="background:var(--amber)"></i>open model</span></div>
-    </div>
-    <div class="frame keys">
-      <h4>Your AI accounts</h4>
-      <div class="r">Anthropic<span class="ok">connected</span></div>
-      <div class="r">OpenAI<span class="ok">connected</span></div>
-      <div class="r">Google<span class="ok">connected</span></div>
-      <div class="r">Your own server<span style="color:var(--dim)">add</span></div>
-      <p class="note">Keys stay with your company. Hadji uses them; it never resells them.</p>
-    </div>
-  </div>
-  <div class="feat"><div>What you get</div><div><span>Model per job</span><span>Switch any time</span></div><div><span>Your accounts, your bill</span><span>Your data stays yours</span></div></div>
-</div></section>
-
-<section id="phone"><div class="wrap">
-  <div class="mobile">
-    <div>
-      <h2 style="margin-bottom:24px">Run it from<br>your phone.</h2>
-      <ul>
-        <li><i>01</i><div><b>Ask</b><span>Start any job in plain words, wherever you are.</span></div></li>
-        <li><i>02</i><div><b>Check in</b><span>See what's moving, what's done, what's waiting.</span></div></li>
-        <li><i>03</i><div><b>Approve</b><span>One tap to ship — or “show me first”.</span></div></li>
-      </ul>
-    </div>
-    <div class="phone"><div class="scr">
-      <div class="notch"></div>
-      <div class="ph"><img src="/assets/icon.svg" alt="">Hadji</div>
-      <div class="msgs">
-        <div class="me">Add a water tank gauge to the van app</div>
-        <div class="hj">On it. Built the gauge, tested it on the van screen and the phone app.</div>
-        <div class="hj">Here's how it looks — want it live?</div>
-        <div class="card"><b>Van: water tank gauge</b><span style="color:#C9CCD1">Ready to ship</span>
-          <div class="btns"><span class="btn go">Ship it</span><span class="btn">Show me</span></div></div>
-      </div>
-      <div class="inp">Ask Hadji…</div>
-    </div></div>
-  </div>
-</div></section>
-
-<section id="built"><div class="wrap">
-  <div class="sh">
-    <h2>Built with Hadji.</h2>
-    <p>Hadji builds Hadji — the product is made on its own line. And real things run on it today — <b>built by agents, approved by a person.</b></p>
-  </div>
-  <div class="stats">
-    <div class="stat"><b>392</b><span>changes merged into Hadji in one week — Oct 18 to 24, 2026. Counted on Hadji's own GitHub.</span></div>
-    <div class="stat"><b>46</b><span>releases to production that same week — new work reaches users the day it is done.</span></div>
-  </div>
-  <div class="shots">
-    <div class="frame"><img src="/assets/gym-dashboard.webp" alt="The gym's dashboard: members, what happened today, and 30 days of purchases" loading="lazy"><div class="cap"><b>Door codes for <a href="https://omnitahoe.com" target="_blank" rel="noopener">OMNI Tahoe</a></b><span>Buy a membership on the website, get a door code by email. Runs the front door every day. Names and emails replaced.</span></div></div>
-    <div class="frame"><img src="/assets/van.webp" alt="A camper van's control screen and the phone app that mirrors it" loading="lazy"><div class="cap"><b>A control screen for a camper van</b><span>Heat, power, water and lights on the van's screen and a phone app — first sketch to working prototype in days.</span></div></div>
-  </div>
-</div></section>
-<section class="why" id="why"><div class="wrap">
-  <img class="mark" src="/assets/wordmark.svg" alt="Hadji">
-  <span class="eyebrow">Why "Hadji"?</span>
-  <h2>Named for the friend who has your back.</h2>
-  <p>Hadji was the founder's nickname in high school — after <a href="https://en.wikipedia.org/wiki/Jonny_Quest_(TV_series)" target="_blank" rel="noopener">Hadji in the 1960s cartoon <i>Jonny Quest</i></a>, Jonny's adopted brother and right-hand man. That's the whole idea: a right hand for the person in charge.</p>
-  <p class="weave">The H is woven from three threads — a quiet nod to a flying carpet.</p>
-</div></section>
+  <section class="about">
+    <h2>Company</h2>
+    <address>
+      <b style="color:var(--fg)">Rajababa LLC</b>, a Nevada limited liability company<br>
+      1810 E Sahara Ave, Suite 75688<br>
+      Las Vegas, NV 89104, USA<br>
+      <a href="mailto:ameet@rajababa.io">ameet@rajababa.io</a>
+    </address>
+  </section>
 </main>
 
-<div class="end"><div class="wrap">
-  <h2>Lift the load.</h2>
-  <p>Opening to a few teams first.</p>
-  <a class="big" href="https://docs.google.com/forms/d/e/1FAIpQLSeXhepqTlClRulPfzfcVWBVjMBx3YRTRbz-kNk48ORORa-Zxw/viewform" target="_blank" rel="noopener">Get early access</a>
-</div></div>
-
-<footer><div class="wrap"><span class="brand"><img src="/assets/wordmark.svg" alt="Hadji" style="height:20px"></span><span class="legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>© 2026 Hadji</span></div></footer>
-
-<script>
-  // The hero log: lines arrive one at a time, then the run starts over.
-  const lines = [
-    '<span class="c">$ hadji run shop/checkout-cent</span>',
-    '<span class="k">builder</span>  editing cart/total.ts',
-    '<span class="k">builder</span>  added test "coupon cart is exact"',
-    '<span class="k">checker</span>  types ........ <span class="ok">pass</span>',
-    '<span class="k">checker</span>  lint ......... <span class="ok">pass</span>',
-    '<span class="k">checker</span>  tests 412 .... <span class="ok">pass</span>',
-    '<span class="k">checker</span>  review ....... <span class="ok">no problems</span>',
-    '<span class="k">hadji</span>    touches payments → <span class="k">waiting for your OK</span>',
-  ];
-  const term = document.getElementById('term');
-  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (still) {
-    term.innerHTML = lines.join('<br>');
-  } else {
-    let i = 0;
-    const tick = () => {
-      if (i >= lines.length) { i = 0; term.innerHTML = ''; }
-      term.innerHTML = term.innerHTML.replace('<span class="cur"></span>', '') + lines[i++] + '<br><span class="cur"></span>';
-      setTimeout(tick, i === lines.length ? 3500 : 900);
-    };
-    tick();
-    let s = 184;
-    const clock = document.getElementById('clock');
-    setInterval(() => { s++; clock.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }, 1000);
-  }
-</script>
+<footer><div class="wrap">
+  <span>© 2026 Rajababa LLC · <a href="mailto:ameet@rajababa.io">ameet@rajababa.io</a></span>
+  <span><a href="https://hadji.ai/privacy/">Privacy</a> · <a href="https://hadji.ai/terms/">Terms</a></span>
+</div></footer>
 </body>
 </html>
